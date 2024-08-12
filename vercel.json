@@ -1,14 +1,26 @@
 {
+  "version": 2,
+  "functions": {
+    "api/**/*.py": {
+      "runtime": "python3.9"
+    }
+  },
   "builds": [
     {
       "src": "api/test.py",
-      "use": "@vercel/python"
+      "use": "@vercel/python",
+      "config": {
+        "maxDuration": 10
+      }
     }
   ],
   "routes": [
     {
-      "src": "/(.*)",
-      "dest": "api/test.py"
+      "src": "/api/(.*)",
+      "dest": "/api/test.py"
     }
-  ]
+  ],
+  "env": {
+    "DATABASE_URL": "@mysql+pymysql://root:@localhost:3306/attendance_db"
+  }
 }
